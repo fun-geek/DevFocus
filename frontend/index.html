@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DevFocus</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Background decoration -->
+    <div class="background-glow glow-one"></div>
+    <div class="background-glow glow-two"></div>
+
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+
+        <div class="logo">
+            <div class="logo-icon">D</div>
+
+            <div>
+                <h2>DevFocus</h2>
+                <span>Focus better. Code better.</span>
+            </div>
+        </div>
+
+        <div class="nav-right">
+            <div class="status-dot"></div>
+            <span>Focus Mode</span>
+        </div>
+
+    </nav>
+
+
+    <!-- MAIN -->
+    <main class="container">
+
+
+        <!-- WELCOME -->
+        <section class="welcome">
+
+            <div>
+                <p class="small-label">WELCOME BACK</p>
+
+                <h1>
+                    Ready to
+                    <span>focus?</span>
+                </h1>
+
+                <p class="subtitle">
+                    Track your focus sessions and understand
+                    what breaks your concentration.
+                </p>
+            </div>
+
+            <div class="date-box">
+                <span id="currentDate">Today</span>
+            </div>
+
+        </section>
+
+
+        <!-- DASHBOARD GRID -->
+        <section class="dashboard">
+
+
+            <!-- TIMER CARD -->
+            <div class="card timer-card">
+
+                <div class="card-header">
+
+                    <div>
+                        <p class="card-label">CURRENT SESSION</p>
+                        <h3 id="sessionStatus">Ready to focus</h3>
+                    </div>
+
+                    <div class="live-indicator" id="liveIndicator">
+                        <span></span>
+                        <label>OFFLINE</label>
+                    </div>
+
+                </div>
+
+
+                <!-- TIMER -->
+                <div class="timer-container">
+
+                    <div class="timer-ring">
+
+                        <div class="timer-inner">
+
+                            <div id="timer">
+                                25:00
+                            </div>
+
+                            <p id="timerText">
+                                Focus Session
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CONTROLS -->
+                <div class="controls">
+
+                    <button
+                        id="startBtn"
+                        class="primary-btn"
+                        onclick="startSession()">
+
+                        <span>▶</span>
+                        Start Session
+
+                    </button>
+
+
+                    <button
+                        id="interruptBtn"
+                        class="danger-btn"
+                        onclick="showInterruptions()"
+                        disabled>
+
+                        <span>⚡</span>
+                        I got distracted!
+
+                    </button>
+
+
+                    <button
+                        id="endBtn"
+                        class="secondary-btn"
+                        onclick="endSession()"
+                        disabled>
+
+                        End Session
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- STATISTICS -->
+            <div class="stats-section">
+
+
+                <div class="card stat-card">
+
+                    <div class="stat-icon focus-icon">
+                        ⏱
+                    </div>
+
+                    <div>
+                        <p>Today's Focus</p>
+
+                        <h2>
+                            <span id="focusMinutes">0</span>
+                            <small>min</small>
+                        </h2>
+                    </div>
+
+                </div>
+
+
+                <div class="card stat-card">
+
+                    <div class="stat-icon distraction-icon">
+                        ⚡
+                    </div>
+
+                    <div>
+                        <p>Interruptions</p>
+
+                        <h2 id="interruptionCount">
+                            0
+                        </h2>
+                    </div>
+
+                </div>
+
+
+                <div class="card stat-card">
+
+                    <div class="stat-icon session-icon">
+                        🎯
+                    </div>
+
+                    <div>
+                        <p>Sessions</p>
+
+                        <h2 id="sessionCount">
+                            0
+                        </h2>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- DISTRACTION ANALYSIS -->
+            <div class="card analysis-card">
+
+                <div class="card-header">
+
+                    <div>
+                        <p class="card-label">
+                            DISTRACTION ANALYSIS
+                        </p>
+
+                        <h3>
+                            What's breaking your focus?
+                        </h3>
+                    </div>
+
+                    <span class="analysis-badge">
+                        Live data
+                    </span>
+
+                </div>
+
+
+                <div class="distraction-list">
+
+                    <div class="empty-state" id="emptyState">
+
+                        <div class="empty-icon">
+                            🧠
+                        </div>
+
+                        <p>
+                            No distractions recorded yet.
+                        </p>
+
+                        <span>
+                            Start a session and we'll track
+                            what interrupts your focus.
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+
+    <!-- INTERRUPTION MODAL -->
+
+    <div
+        class="modal-overlay"
+        id="interruptModal">
+
+        <div class="modal">
+
+            <button
+                class="close-btn"
+                onclick="closeInterruptions()">
+
+                ×
+
+            </button>
+
+            <div class="modal-icon">
+                ⚡
+            </div>
+
+            <h2>What distracted you?</h2>
+
+            <p>
+                Choose what interrupted your focus.
+            </p>
+
+
+            <div class="reason-grid">
+
+                <button onclick="logInterruption('Phone')">
+                    📱
+                    <span>Phone</span>
+                </button>
+
+                <button onclick="logInterruption('Noise')">
+                    🔊
+                    <span>Noise</span>
+                </button>
+
+                <button onclick="logInterruption('Social Media')">
+                    📱
+                    <span>Social Media</span>
+                </button>
+
+                <button onclick="logInterruption('Message')">
+                    💬
+                    <span>Message</span>
+                </button>
+
+                <button onclick="logInterruption('Break')">
+                    ☕
+                    <span>Break</span>
+                </button>
+
+                <button onclick="logInterruption('Tired')">
+                    😴
+                    <span>Tired</span>
+                </button>
+
+                <button onclick="logInterruption('Other')">
+                    ✦
+                    <span>Other</span>
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- USER MODAL -->
+
+    <div
+        class="modal-overlay"
+        id="userModal">
+
+        <div class="modal user-modal">
+
+            <div class="modal-icon">
+                👋
+            </div>
+
+            <h2>Welcome to DevFocus</h2>
+
+            <p>
+                Create your profile to start tracking your focus.
+            </p>
+
+
+            <input
+                type="text"
+                id="userName"
+                placeholder="Your name">
+
+
+            <input
+                type="email"
+                id="userEmail"
+                placeholder="Your email">
+
+
+            <button
+                class="primary-btn full-btn"
+                onclick="createUser()">
+
+                Start using DevFocus →
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
